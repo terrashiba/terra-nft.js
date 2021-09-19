@@ -1,6 +1,6 @@
 import { TxInfo } from "@terra-money/terra.js"
 
-export function getContractAddressFromInstantiateResult(txInfo: TxInfo): string | void  {
+export function getContractAddressFromInstantiateResult(txInfo: TxInfo): string  {
   let contractAddress
 
   txInfo.logs.map(log => {
@@ -13,5 +13,6 @@ export function getContractAddressFromInstantiateResult(txInfo: TxInfo): string 
     })
   })
 
+  if (!contractAddress) throw Error('Fail to get contract address')
   return contractAddress
 }

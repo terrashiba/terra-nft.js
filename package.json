@@ -4,6 +4,7 @@
   "description": "api for create nft contract, mint, transfer, burn ...",
   "main": "src/index.ts",
   "scripts": {
+    "sample": "NODE_ENV=production node --stack_size=4096 --max-old-space-size=4096 -r ts-node/register/transpile-only -r tsconfig-paths/register src/sample.ts",
     "build": "tsc --module commonjs"
   },
   "keywords": [

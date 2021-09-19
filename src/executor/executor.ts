@@ -34,8 +34,8 @@ export class Executor {
 
     let txInfo
 
-    while (txInfo) {
-      txInfo = await this.lcd.tx.txInfo(result.txhash)
+    while (txInfo == undefined) {
+      txInfo = await this.lcd.tx.txInfo(result.txhash).catch(err => undefined)
       await delay(1000)
     }
 
