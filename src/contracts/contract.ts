@@ -70,7 +70,8 @@ export class Contract {
 
   protected createInstantiateMsg(
     initMsg: any,
-    initCoins: Coins.Input = {}
+    initCoins: Coins.Input = {},
+    migratable = false
   ): MsgInstantiateContract {
     if (!this.codeID) {
       throw new Error('codeID not provided - unable to instantiate contract');
@@ -78,7 +79,7 @@ export class Contract {
 
     return new MsgInstantiateContract(
       this.key.accAddress,
-      this.key.accAddress,
+      migratable? this.key.accAddress : '',
       this.codeID,
       initMsg,
       initCoins

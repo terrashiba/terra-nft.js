@@ -9,15 +9,15 @@ import { getContractAddressFromInstantiateResult } from 'utils'
 // if there are no UST in the wallet get UST from https://faucet.terra.money/
 const MNEMONIC = 'attack chase glow recall give what liberty feel left include vague language dove boring rely repeat minor initial weasel income melt license camp rigid'
 
-// On bombay cw721-base contract already deployed and that codeId is 11015
+// On bombay cw721-base contract already deployed and that codeId is 9575
 // cw721-base contract https://github.com/CosmWasm/cw-plus/tree/main/contracts/cw721-base
-const cw721CodeId = 11015
+const cw721CodeId = 9575
 
 async function main() {
   // set wallet
   const lcd = new LCDClient({
     URL: 'https://bombay-lcd.terra.dev',
-    chainID: 'bombay-10',
+    chainID: 'bombay-11',
     gasPrices: '0.15uusd',
     gasAdjustment: '1.4'
   })
@@ -75,7 +75,7 @@ async function main() {
     key.accAddress // owner of NFT
   )
 
-  await executor.execute({
+  const mint = await executor.execute({
     msgs: [mintMsg],
     fee,
     sequence,
@@ -83,6 +83,8 @@ async function main() {
   })
 
   console.log(`Mint new NFT`)
+
+  await executor.pollingTx(mint)
 
   sequence++
 
