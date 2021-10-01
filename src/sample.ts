@@ -12,13 +12,13 @@ const MNEMONIC = 'attack chase glow recall give what liberty feel left include v
 
 // On bombay cw721-base contract already deployed and that codeId is 9575
 // cw721-base contract https://github.com/CosmWasm/cw-plus/tree/main/contracts/cw721-base
-const cw721CodeId = 9575
+const cw721CodeId = 10278
 
 async function main() {
   // set wallet
   const lcd = new LCDClient({
     URL: 'https://bombay-lcd.terra.dev',
-    chainID: 'bombay-11',
+    chainID: 'bombay-12',
     gasPrices: '0.15uusd',
     gasAdjustment: '1.4'
   })
@@ -97,10 +97,9 @@ async function main() {
 
   sequence++
 
-  const transferMsg = cw721.send(
+  const transferMsg = cw721.transfer(
     'terra123xkp64gmwqxklgcf224a6r4pkmunggzpd420l',
     'NFT_1',
-    JSON.parse('{}')
   )
 
   await executor.execute({
