@@ -1,6 +1,7 @@
 import { Fee, LCDClient, MnemonicKey, Wallet } from '@terra-money/terra.js'
 import { CW721 } from 'contracts'
 import { Executor } from 'executor'
+import { Extension } from 'types'
 import { getContractAddressFromInstantiateResult } from 'utils'
 
 // this is a sample code for bomboay-11
@@ -12,7 +13,7 @@ const MNEMONIC = 'attack chase glow recall give what liberty feel left include v
 
 // On bombay cw721-base contract already deployed and that codeId is 9575
 // cw721-base contract https://github.com/CosmWasm/cw-plus/tree/main/contracts/cw721-base
-const cw721CodeId = 10278
+const cw721CodeId = 10312
 
 async function main() {
   // set wallet
@@ -74,13 +75,24 @@ async function main() {
   console.log(`Generate NFT contract, contract address - ${nftContractAddress}`)
 
 
+  const sampleExtension: Extension = {
+    external_url: 'https://terra.mirror.finance',
+    attributes: [
+      {
+        trait_type: 'trait1',
+        value: '1'
+      },
+      {
+        trait_type: 'trait2',
+        value: '3'
+      }
+    ]
+  }
   // mint NFT
   const mintMsg = cw721.mint(
-    'NFT_1', // NFT id
-    'NFT', // NFT name
-    'the test nft', // NFT description
-    'https://terra.money', // image URL
-    key.accAddress // owner of NFT
+    'NFT_1',
+    'https://terra.money',
+    sampleExtension
   )
 
   const mint = await executor.execute({

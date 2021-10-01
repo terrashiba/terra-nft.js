@@ -1,6 +1,6 @@
 import { AccAddress, MsgExecuteContract, MsgInstantiateContract } from '@terra-money/terra.js'
 import { Contract } from './contract'
-import { Expiration } from 'types'
+import { Expiration, Extension } from 'types'
 import { trimMsg } from 'utils/trimType';
 
 
@@ -35,9 +35,8 @@ interface ContractInfoResponse {
 }
 
 interface NftInfoResponse {
-  name: string
-  description: string
-  image: string
+  token_uri: string
+  extension: any
 }
 
 interface AllNftInfoResponse {
@@ -48,11 +47,7 @@ interface AllNftInfoResponse {
       expires: Expiration
     }[]
   }
-  info: {
-    name: string
-    description: string
-    image: string
-  }
+  info: NftInfoResponse
 }
 
 interface TokensResponse {
@@ -73,13 +68,17 @@ export class CW721 extends Contract{
   // Mint a new NFT, can only be called by the contract minter
   public mint(
     token_id: string,
-    name: string,
-    description?: string,
-    image?: string,
+    token_uri?: string,
+    extension?: Extension,
     owner: AccAddress = this.key.accAddress
   ): MsgExecuteContract {
     return this.createExecuteMsg({
-      mint: { token_id, name, description, image, owner }
+      mint: { 
+        token_id,
+        token_uri,
+        extension,
+        owner 
+      }
     })
   }
 
