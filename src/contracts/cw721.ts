@@ -36,7 +36,7 @@ interface ContractInfoResponse {
 
 interface NftInfoResponse {
   token_uri: string
-  extension: any
+  extension: Extension
 }
 
 interface AllNftInfoResponse {
