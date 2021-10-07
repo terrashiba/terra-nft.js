@@ -6,8 +6,8 @@ export interface Extension {
   name?: string
   attributes?: Trait[]
   background_color?: string
-  nimation_url?: string
-  youtube_url?: String
+  animation_url?: string
+  youtube_url?: string
 }
 
 interface Trait {

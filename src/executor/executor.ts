@@ -12,16 +12,24 @@ import { delay } from 'bluebird'
 export class Executor {
   wallet: Wallet
   lcd: LCDClient
+  seqeunce: number
   
   constructor(key: Key, lcd: LCDClient) {
     this.wallet = new Wallet(lcd, key)
     this.lcd = lcd
   }
 
-  async execute(options: CreateTxOptions): Promise<SyncTxBroadcastResult> {
+  async execute(options: CreateTxOptions): Promise<TxInfo> {
+    if (!this.seqeunce) {
+      this.seqeunce = await this.wallet.sequence()
+    }
+
     try {
       const tx = await this.wallet.createAndSignTx(options)
-      return this.wallet.lcd.tx.broadcastSync(tx)
+      const boradcastResult = await this.wallet.lcd.tx.broadcastSync(tx)
+      const txInfo = await this.pollingTx(boradcastResult)
+      this.seqeunce++
+      return txInfo
     } catch (err) {
       console.log(err)
     }
