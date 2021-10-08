@@ -13,7 +13,7 @@ const MNEMONIC = 'attack chase glow recall give what liberty feel left include v
 
 // On bombay cw721-base contract already deployed and that codeId is 10312
 // cw721 contract https://github.com/CosmWasm/cw-nfts/tree/main/packages/cw721
-const cw721CodeId = 10312
+const cw721CodeId = 12353
 
 async function main() {
   // set wallet
@@ -110,7 +110,6 @@ async function mint(cw721: CW721, executor: Executor): Promise<void> {
       'NFT_' + id.toString(),
       'https://token' + id.toString(),
       sampleExtension,
-      'terra123xkp64gmwqxklgcf224a6r4pkmunggzpd420l'
     )
 
     mintMsgs.push(mintMsg)
